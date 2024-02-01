@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz</title>
+  <title>Music Instrument Quiz</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,6 +36,11 @@
       margin: 10px;
     }
 
+.option.selected {
+  font-weight: bold;
+    font-size: 20px;
+}
+
     #result-container {
       margin-top: 20px;
       font-size: 18px;
@@ -45,11 +50,20 @@
 <body>
 
 <div id="quiz-container">
-  <h1>Music Instrument Quiz</h1>
+  <h1>Which Music Instrument Should You Play?</h1>
 
   <div id="question-container" class="question"></div>
   <div id="options-container" class="options"></div>
-  <button onclick="nextQuestion()" id="next-btn">Next</button>
+  <button onclick="nextQuestion()" id="next-btn" style="background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;">Next</button>
 
   <div id="result-container"></div>
 </div>
@@ -57,7 +71,7 @@
 <script>
   const questions = [
     {
-      question: "Which music genre do you enjoy the most?",
+      question: "~Which music genre do you enjoy the most?~",
       options: ["Rock", "Pop", "Jazz", "Classical", "Hip Hop"]
     },
     {
@@ -81,7 +95,7 @@
   const results = [
     {
       instrument: "Electric Guitar",
-      description: "You love the energetic and expressive sound of the electric guitar. Rock on! "
+      description: "You love the energetic and expressive sound of the electric guitar. Rock on! <br><img src='electric_guitar_image.jpg' alt='Electric Guitar Image' style='width: 300px;'>"
     },
     {
       instrument: "Piano",
@@ -110,9 +124,13 @@
     const currentQuestion = questions[currentQuestionIndex];
 
     questionContainer.textContent = currentQuestion.question;
+
+    // Shuffle the options before displaying them
+    const shuffledOptions = shuffleArray(currentQuestion.options);
+
     optionsContainer.innerHTML = "";
 
-    currentQuestion.options.forEach((option, index) => {
+    shuffledOptions.forEach((option, index) => {
       const optionElement = document.createElement("div");
       optionElement.className = "option";
       optionElement.textContent = option;
@@ -121,13 +139,13 @@
     });
   }
 
-  function selectOption(index) {
-    userAnswers[currentQuestionIndex] = index;
-    document.querySelectorAll(".option").forEach((option) => {
-      option.style.backgroundColor = "";
-    });
-    document.querySelectorAll(".option")[index].style.backgroundColor = "#cfd9e1";
-  }
+function selectOption(index) {
+  userAnswers[currentQuestionIndex] = index;
+  document.querySelectorAll(".option").forEach((option) => {
+    option.classList.remove("selected");
+  });
+  document.querySelectorAll(".option")[index].classList.add("selected");
+}
 
   function nextQuestion() {
     if (userAnswers[currentQuestionIndex] === undefined) {
@@ -159,6 +177,15 @@
     resultContainer.innerHTML = `<h2>Your Result: ${result.instrument}</h2>
                                  <p>${result.description}</p>`;
     document.getElementById("next-btn").style.display = "none";
+  }
+
+  function shuffleArray(array) {
+    // Fisher-Yates shuffle algorithm
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   showQuestion();
