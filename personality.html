@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Instrument Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .option {
+      margin: 10px;
+    }
+
+    #result-container {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz-container">
+  <h1>Music Instrument Quiz</h1>
+
+  <div id="question-container" class="question"></div>
+  <div id="options-container" class="options"></div>
+  <button onclick="nextQuestion()" id="next-btn">Next</button>
+
+  <div id="result-container"></div>
+</div>
+
+<script>
+  const questions = [
+    {
+      question: "Which music genre do you enjoy the most?",
+      options: ["Rock", "Pop", "Jazz", "Classical", "Hip Hop"]
+    },
+    {
+      question: "What type of rhythm do you prefer?",
+      options: ["Fast and Energetic", "Steady and Catchy", "Smooth and Jazzy", "Melodic and Slow", "Upbeat and Groovy"]
+    },
+    {
+      question: "Choose a musical mood:",
+      options: ["Energetic", "Happy", "Relaxed", "Reflective", "Danceable"]
+    },
+    {
+      question: "Select a musical instrument sound you like:",
+      options: ["Guitar", "Piano", "Saxophone", "Violin", "Drums"]
+    },
+    {
+      question: "What do you enjoy the most in music?",
+      options: ["Guitar Solos", "Catchy Melodies", "Improvisation", "Orchestral Arrangements", "Rhythmic Beats"]
+    }
+  ];
+
+  const results = [
+    {
+      instrument: "Electric Guitar",
+      description: "You love the energetic and expressive sound of the electric guitar. Rock on! "
+    },
+    {
+      instrument: "Piano",
+      description: "Your preference for melodic and versatile sounds makes the piano a perfect choice for you."
+    },
+    {
+      instrument: "Saxophone",
+      description: "You appreciate the smooth and jazzy tones of the saxophone. Jazz it up!"
+    },
+    {
+      instrument: "Violin",
+      description: "The beautiful and classical sound of the violin suits your taste. Embrace the elegance!"
+    },
+    {
+      instrument: "Drums",
+      description: "Your love for rhythmic beats points to the drums. Get ready to keep the beat!"
+    }
+  ];
+
+  let currentQuestionIndex = 0;
+  let userAnswers = [];
+
+  function showQuestion() {
+    const questionContainer = document.getElementById("question-container");
+    const optionsContainer = document.getElementById("options-container");
+    const currentQuestion = questions[currentQuestionIndex];
+
+    questionContainer.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = "";
+
+    currentQuestion.options.forEach((option, index) => {
+      const optionElement = document.createElement("div");
+      optionElement.className = "option";
+      optionElement.textContent = option;
+      optionElement.onclick = () => selectOption(index);
+      optionsContainer.appendChild(optionElement);
+    });
+  }
+
+  function selectOption(index) {
+    userAnswers[currentQuestionIndex] = index;
+    document.querySelectorAll(".option").forEach((option) => {
+      option.style.backgroundColor = "";
+    });
+    document.querySelectorAll(".option")[index].style.backgroundColor = "#cfd9e1";
+  }
+
+  function nextQuestion() {
+    if (userAnswers[currentQuestionIndex] === undefined) {
+      alert("Please select an option before moving to the next question.");
+      return;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const resultContainer = document.getElementById("result-container");
+    const totalQuestions = questions.length;
+    let scores = Array(results.length).fill(0);
+
+    for (let i = 0; i < totalQuestions; i++) {
+      scores[userAnswers[i]]++;
+    }
+
+    const maxScoreIndex = scores.indexOf(Math.max(...scores));
+    const result = results[maxScoreIndex];
+
+    resultContainer.innerHTML = `<h2>Your Result: ${result.instrument}</h2>
+                                 <p>${result.description}</p>`;
+    document.getElementById("next-btn").style.display = "none";
+  }
+
+  showQuestion();
+</script>
+
+</body>
+</html>
