@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" type="image/x-icon" href="photo.jpg" />
-  <title>Welcome</title>
+  <title>About me :: ericb.pro</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,6 +38,35 @@
             text-decoration: none;
             color: #476B23;
         }
+       .dropdown {
+            position: relative;
+            display: inline-block;
+           font-family: 'Courier New', monospace;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            color: #fff;
+        }
+
+        .dropdown-item:hover {
+            background-color: #333;
+        }
   </style>
 </head>
 <body>
@@ -46,5 +75,15 @@
   <h1 align=center>About Me</h1>
 <br>
  Hi! In case you were wondering who made this amazing website, think no longer! My name is Eric and I am an English tutor living in Ukraine.
+
+<div id="quiz-container" style=" position: fixed; right: 0; top: 0;">
+<div class="dropdown">
+    <span><b>Language / Мова</b></span>
+    <div class="dropdown-content">
+        <a class="dropdown-item"><img src="usa.png" width="20" style=" border: 1px solid #ccc;" align="top"> English</a>
+        <a href="aboutua.html" class="dropdown-item"><img src="ua.png" width="20" style=" border: 1px solid #ccc;" align="top"> Українська</a>
+    </div>
+</div>
+</div>
 
 <script id="help-ukraine-win" async="true" src="https://helpukrainewinwidget.org/cdn/widget.js?type=four&position=top-left&layout=main"></script>
