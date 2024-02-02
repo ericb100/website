@@ -38,6 +38,35 @@
             text-decoration: none;
             color: #476B23;
         }
+       .dropdown {
+            position: relative;
+            display: inline-block;
+           font-family: 'Courier New', monospace;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            color: #fff;
+        }
+
+        .dropdown-item:hover {
+            background-color: #333;
+        }
   </style>
 </head>
 <body>
@@ -68,8 +97,10 @@
         nestedList.style.display = (nestedList.style.display === 'none' || nestedList.style.display === '') ? 'block' : 'none';
     }
 </script>
+</div>
+<br><br>
 
-  <div id="quiz-container" style=" position: fixed; right: 0; top: 0;">
+<div id="quiz-container" style=" position: fixed; right: 0; top: 0;">
 <div class="dropdown">
     <span><b>Language / Мова</b></span>
     <div class="dropdown-content">
